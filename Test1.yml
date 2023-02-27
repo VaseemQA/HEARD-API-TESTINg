@@ -1,0 +1,19 @@
+version: 2.1
+orbs:
+  newman: postman/newman@1.0.0
+jobs:
+  build: 
+    executor: newman/postman-newman-docker
+    steps: 
+      - checkout 
+      - run:
+            name: Install newman 
+            command: npm install newman 
+      - run: 
+            name: Install dependencies
+            command: apk add --update ca-certificates openssl && update-ca-certificates 
+      - run:
+            name: Run Heard api
+            command: | 
+              newman run https://api.postman.com/collections/21432640-ad6fd583-847c-4684-8d8b-aa28ba3a6531?access_key=PMAT-01GSYQXAHXBTD6ZPCB2AVXPQSC 
+           
